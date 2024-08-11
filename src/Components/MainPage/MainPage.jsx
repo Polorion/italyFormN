@@ -1,7 +1,7 @@
 import * as React from 'react';
 import S from './MainPage.module.scss'
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Popup} from "../Popup/Popup";
 import {PopupMore} from "../PopupMore/PopupMore.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,6 +13,25 @@ import {
 } from "../../store/main/main.js";
 
 export const MainPage = () => {
+    const node = document.querySelector(":root");
+    const [mainCity, setMainCity] = useState(false)
+    const [contract, setContract] = useState(false)
+    const [product, setProduct] = useState(false)
+    const [moreCity, setMoreCity] = useState(false)
+    useEffect(()=>{
+        if(mainCity ||contract||product||moreCity){
+            node.style.overflow='hidden'
+        }
+        else {
+            node.style.overflow='auto'
+        }
+
+    },[mainCity,
+        contract,
+        product,
+        moreCity,
+
+    ])
     const mainCityData = useSelector(state => state.main.mainCity)
     const contractData = useSelector(state => state.main.contract)
     const productsData = useSelector(state => state.main.products)
@@ -40,10 +59,6 @@ export const MainPage = () => {
                 return;
         }
     }
-    const [mainCity, setMainCity] = useState(false)
-    const [contract, setContract] = useState(false)
-    const [product, setProduct] = useState(false)
-    const [moreCity, setMoreCity] = useState(false)
     const {register, handleSubmit, formState} = useForm({
         mode: "onBlur"
     })
