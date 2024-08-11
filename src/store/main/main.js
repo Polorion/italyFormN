@@ -2,10 +2,10 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    mainCity: [],
-    contract: [],
-    products: [],
-    choiceCity: [],
+    mainCity: ['1','2','3','4','5','6','7','8','9',],
+    contract: ['1','2','3','4','5','6','7','8','9',],
+    products: ['1','2','3','4','5','6','7','8','9',],
+    choiceCity: ['1','2','3','4','5','6','7','8','9',],
     choiceMainCity: [],
     choiceContract: [],
     choiceProducts: [],
