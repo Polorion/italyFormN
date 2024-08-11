@@ -106,11 +106,7 @@ export const MainPage = () => {
                     <div className={S.error}> {formState.errors.inn && formState.errors.inn.message}</div>
                 </div>
                 <div className={S.choiceBlock}>
-                    <div onClick={() => {
-                        clearErrors('btn')
-                        console.log(formState.errors);
-                    }}>test
-                    </div>
+                   
                     <button className={S.button} onClick={choiceCity}>выбрать основной город</button>
                     <div {...register('btn', {
                         validate: () => {
