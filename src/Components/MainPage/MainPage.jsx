@@ -66,7 +66,7 @@ export const MainPage = () => {
         setMoreCity(prevState => !prevState)
     }
     return (
-        <div className={S.body}>
+        <div className={`${S.body} ${mainCity&&S.block}`}>
             <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={`${S.name} ${S.inputBody} `}>
                     <p className={S.titleBlock}>Фактическое название
