@@ -1,3 +1,11 @@
+.error {
+  position: absolute;
+  color: red;
+  bottom: -15px;
+  font-size: 10px;
+
+}
+
 .inputBody {
   display: flex;
   flex-direction: column;
@@ -5,13 +13,6 @@
   align-items: center;
   position: relative;
 
-  .error {
-    position: absolute;
-    color: red;
-    bottom: -15px;
-    font-size: 10px;
-
-  }
 
   p {
     margin-bottom: 10px;
@@ -145,6 +146,7 @@
 
 .choiceBlock {
   background-color: rgba(82, 79, 79, 0.47);
+  position: relative;
   padding: 20px;
   width: calc(100% + 40px);
   display: flex;
@@ -152,6 +154,10 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
+
+  .error {
+    bottom: 5px;
+  }
 
   .none {
     display: none;
@@ -192,6 +198,7 @@
   }
   .choiceBlock {
     font-size: 15px;
+
     div {
       margin-top: 7px;
     }
@@ -199,10 +206,11 @@
   .inputBody {
     div {
       font-size: 12px;
-      bottom: -15px!important;
+      bottom: -15px !important;
     }
   }
 }
+
 @media screen and (max-width: 290px) {
   input, textarea {
     width: 100%;
@@ -220,7 +228,7 @@
   .inputBody {
     div {
       font-size: 10px;
-      bottom: -15px!important;
+      bottom: -15px !important;
     }
   }
 }

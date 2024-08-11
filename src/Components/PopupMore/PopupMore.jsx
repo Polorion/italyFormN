@@ -5,17 +5,17 @@ import * as ReactDOM from "react-dom";
 import {useDispatch} from "react-redux";
 import {getAllCityRedux, getAllContactRedux, getAllProductRedux} from "../../store/main/main.js";
 
-export const PopupMore = ({title, elem, closed, type, choice}) => {
+export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
+    const [error, setErrorState] = useState(true)
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        if(type==='setAllCity'){
+    useEffect(() => {
+        if (type === 'setAllCity') {
             dispatch(getAllCityRedux())
-        }
-        else {
+        } else {
             dispatch(getAllProductRedux())
         }
-    },[])
+    }, [])
     const node = document.querySelector("#modal");
     const exit = (e) => {
         closed(prev => !prev)
@@ -40,7 +40,7 @@ export const PopupMore = ({title, elem, closed, type, choice}) => {
         item.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    return ReactDOM.createPortal (
+    return ReactDOM.createPortal(
         <div className={S.bodyShadow} onClick={exit}>
             <div onClick={(e) => {
                 e.stopPropagation()
@@ -71,15 +71,22 @@ export const PopupMore = ({title, elem, closed, type, choice}) => {
                     )}
 
                 </div>
-                <div className={S.save} onClick={() => {
-                    exit()
+                <div className={`${S.save} ${!error && S.error}`} onClick={() => {
+                    if (selectedItems[0]) {
+                        exit()
+                        setError()
+                    } else {
+                        setErrorState(false)
+                    }
+
+
                     choice(type, selectedItems)
                 }}>сохранить
                 </div>
             </div>
 
         </div>
-        ,node
+        , node
     );
 };
 

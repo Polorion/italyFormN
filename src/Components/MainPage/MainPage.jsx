@@ -18,15 +18,14 @@ export const MainPage = () => {
     const [contract, setContract] = useState(false)
     const [product, setProduct] = useState(false)
     const [moreCity, setMoreCity] = useState(false)
-    useEffect(()=>{
-        if(mainCity ||contract||product||moreCity){
-            node.style.overflow='hidden'
-        }
-        else {
-            node.style.overflow='auto'
+    useEffect(() => {
+        if (mainCity || contract || product || moreCity) {
+            node.style.overflow = 'hidden'
+        } else {
+            node.style.overflow = 'auto'
         }
 
-    },[mainCity,
+    }, [mainCity,
         contract,
         product,
         moreCity,
@@ -42,7 +41,7 @@ export const MainPage = () => {
     const choiceProducts = useSelector(state => state.main.choiceProducts)
     const choiceChoiceCity = useSelector(state => state.main.choiceChoiceCity)
     const dispatch = useDispatch()
-    const [innValue,setInnValue]=useState('')
+    const [innValue, setInnValue] = useState('')
     const choiceAll = (name, data) => {
         switch (name) {
             case 'setMainCity':
@@ -59,8 +58,8 @@ export const MainPage = () => {
                 return;
         }
     }
-    const {register, handleSubmit, formState} = useForm({
-        mode: "onBlur"
+    const {register, handleSubmit, formState, clearErrors} = useForm({
+        mode: "onTouched"
     })
     const onSubmit = (data) => {
         console.log(formState.errors)
@@ -82,7 +81,7 @@ export const MainPage = () => {
         setMoreCity(prevState => !prevState)
     }
     return (
-        <div className={`${S.body} ${mainCity&&S.block}`}>
+        <div className={`${S.body} ${mainCity && S.block}`}>
 
             <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={`${S.name} ${S.inputBody} `}>
@@ -95,23 +94,37 @@ export const MainPage = () => {
                 </div>
                 <div className={`${S.inn} ${S.inputBody}`}>
                     <p className={S.titleBlock}> ИНН</p>
-                    <input value={innValue} onInput={(e)=>{
+                    <input value={innValue} onInput={(e) => {
 
-                        if(e.target.value.length<11){
+                        if (e.target.value.length < 11) {
                             setInnValue(e.target.value)
                         }
-                        console.log(formState.errors.inn);}}  className={formState.errors.inn && S.errorInput} {...register('inn', {maxLength:10,
-                        minLength: {value:10,message:'должно быть 10 цыфр'},
-                        message:'111',
+                    }} className={formState.errors.inn && S.errorInput} {...register('inn', {
+                        minLength: {value: 10, message: 'должно быть 10 цыфр'},
                         required: 'поле не должно быть пустым',
                     })} type="number"/>
                     <div className={S.error}> {formState.errors.inn && formState.errors.inn.message}</div>
                 </div>
                 <div className={S.choiceBlock}>
+                    <div onClick={() => {
+                        clearErrors('btn')
+                        console.log(formState.errors);
+                    }}>test
+                    </div>
                     <button className={S.button} onClick={choiceCity}>выбрать основной город</button>
-                    <div className={!choiceCainCity[0] && S.none}>
+                    <div {...register('btn', {
+                        validate: () => {
+                            if (!choiceCainCity[0]) {
+                                return false
+                            } else {
+                                return true
+                            }
+                        }
+
+                    })} className={!choiceCainCity[0] && S.none}>
                         {choiceCainCity && choiceCainCity[0]}
                     </div>
+                    <div className={S.error}>{formState.errors.btn && <div>выберите из списка</div>} </div>
                 </div>
                 <div className={`${S.owner} ${S.inputBody}`}>
                     <div className={`${S.ownerName} ${S.NFO} `}>
@@ -154,16 +167,37 @@ export const MainPage = () => {
 
                 <div className={S.choiceBlock}>
                     <button className={S.button} onClick={choiceContact}>Вид контракта</button>
-                    <div className={!choiceContract[0] && S.none}>
+                    <div {...register('btn2', {
+                        validate: () => {
+                            if (!choiceContract[0]) {
+                                return false
+                            } else {
+                                return true
+                            }
+                        }
+
+                    })} className={!choiceContract[0] && S.none}>
                         {choiceContract && choiceContract[0]}
                     </div>
+                    <div className={S.error}>{formState.errors.btn2 && <div>выберите из списка</div>} </div>
                 </div>
 
                 <div className={S.choiceBlock}>
                     <button className={S.button} onClick={choiceProduct}>Основные категории продуктов</button>
-                    <div className={choiceProducts.length < 1 && S.none}>
+                    <div  {...register('btn3', {
+                        validate: () => {
+                            if (!choiceProducts[0]) {
+                                return false
+                            } else {
+                                return true
+                            }
+                        }
+
+                    })} className={choiceProducts.length < 1 && S.none}>
                         {choiceProducts && choiceProducts.map(el => <p>{el}</p>)}
+
                     </div>
+                    <div className={S.error}>{formState.errors.btn3 && <div>выберите из списка</div>} </div>
                 </div>
 
 
@@ -181,21 +215,39 @@ export const MainPage = () => {
 
                 <div className={S.choiceBlock}>
                     <button className={S.button} onClick={choiceMoreCity}>В какие города возможны поставки</button>
-                    <div className={choiceChoiceCity.length < 1 && S.none}>
+                    <div  {...register('btn4', {
+                        validate: () => {
+                            if (!choiceChoiceCity[0]) {
+                                return false
+                            } else {
+                                return true
+                            }
+                        }
+
+                    })} className={choiceChoiceCity.length < 1 && S.none}>
                         {choiceChoiceCity && choiceChoiceCity.map(el => <p>{el}</p>)}
                     </div>
+                    <div className={S.error}>{formState.errors.btn4 && <div>выберите из списка</div>} </div>
                 </div>
 
 
                 {mainCity &&
-                    <Popup title={'основной город'} elem={mainCityData} closed={setMainCity} type={'setMainCity'}
+                    <Popup setError={() => {
+                        clearErrors('btn')
+                    }} title={'основной город'} elem={mainCityData} closed={setMainCity} type={'setMainCity'}
                            choice={choiceAll}/>}
-                {contract && <Popup title={'Вид контракта'} elem={contractData} closed={setContract} type={'setContact'}
+                {contract && <Popup setError={() => {
+                    clearErrors('btn2')
+                }} title={'Вид контракта'} elem={contractData} closed={setContract} type={'setContact'}
                                     choice={choiceAll}/>}
-                {product && <PopupMore title={'Основные категории продуктов'} type={'setProduct'}
+                {product && <PopupMore setError={() => {
+                    clearErrors('btn3')
+                }} title={'Основные категории продуктов'} type={'setProduct'}
                                        choice={choiceAll} elem={productsData} closed={setProduct}/>}
                 {moreCity &&
-                    <PopupMore title={'В какие города возможны поставки'} type={'setAllCity'}
+                    <PopupMore setError={() => {
+                        clearErrors('btn4')
+                    }} title={'В какие города возможны поставки'} type={'setAllCity'}
                                choice={choiceAll} elem={mainCityData} closed={setMoreCity}/>}
                 <button className={S.send}>Отправить</button>
 

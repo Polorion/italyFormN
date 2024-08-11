@@ -5,16 +5,16 @@ import * as ReactDOM from "react-dom";
 import {useDispatch} from "react-redux";
 import {getAllCityRedux, getAllContactRedux} from "../../store/main/main.js";
 
-export const Popup = ({title, elem, closed, choice, type}) => {
+export const Popup = ({title, elem, closed, choice, type, setError}) => {
+    const [error, setErrorState] = useState(true)
     const dispatch = useDispatch()
-    useEffect(()=>{
-        if(type==='setMainCity'){
+    useEffect(() => {
+        if (type === 'setMainCity') {
             dispatch(getAllCityRedux())
-        }
-        else {
+        } else {
             dispatch(getAllContactRedux())
         }
-    },[])
+    }, [])
     const node = document.querySelector("#modal");
     const exit = (e) => {
         closed(prev => !prev)
@@ -34,7 +34,7 @@ export const Popup = ({title, elem, closed, choice, type}) => {
     const filteredItems = elem.filter(item =>
         item.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    return ReactDOM.createPortal (
+    return ReactDOM.createPortal(
         <div className={S.bodyShadow} onClick={exit}>
             <div onClick={(e) => {
                 e.stopPropagation()
@@ -47,7 +47,10 @@ export const Popup = ({title, elem, closed, choice, type}) => {
                     <input placeholder={'введите данные'} value={searchTerm} onChange={handleSearchChange} type="text"/>
                 </div>
                 <div className={S.find}>
-                    {filteredItems.map(el => <div onClick={() => handleItemClick(el)} key={el}
+                    {filteredItems.map(el => <div onClick={() => {
+                        handleItemClick(el)
+                        setErrorState(true)
+                    }} key={el}
                                                   className={`${S.elem} ${selectedItem === el && S.active}`}>{el}</div>)}
                 </div>
                 <div onClick={() => {
@@ -60,13 +63,19 @@ export const Popup = ({title, elem, closed, choice, type}) => {
                     )}
 
                 </div>
-                <div className={S.save} onClick={() => {
-                    exit()
+                <div className={`${S.save} ${!error && S.error}`} onClick={() => {
+                    if (selectedItem) {
+                        exit()
+                        setError()
+                    } else {
+                        setErrorState(false)
+                    }
+
                     choice(type, selectedItem)
                 }}>сохранить
                 </div>
             </div>
 
-        </div>,node
+        </div>, node
     );
 };
