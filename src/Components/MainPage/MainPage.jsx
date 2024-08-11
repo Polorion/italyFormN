@@ -172,7 +172,7 @@ export const MainPage = () => {
                                        choice={choiceAll} elem={productsData} closed={setProduct}/>}
                 {moreCity &&
                     <PopupMore title={'В какие города возможны поставки'} type={'setAllCity'}
-                               choice={choiceAll} elem={choiceCityData} closed={setMoreCity}/>}
+                               choice={choiceAll} elem={mainCityData} closed={setMoreCity}/>}
                 <button className={S.send}>Отправить</button>
 
 

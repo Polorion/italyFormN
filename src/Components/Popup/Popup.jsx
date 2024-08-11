@@ -1,9 +1,20 @@
 import * as React from 'react';
 import S from './Popup.module.scss'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import * as ReactDOM from "react-dom";
+import {useDispatch} from "react-redux";
+import {getAllCityRedux, getAllContactRedux} from "../../store/main/main.js";
 
 export const Popup = ({title, elem, closed, choice, type}) => {
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        if(type==='setMainCity'){
+            dispatch(getAllCityRedux())
+        }
+        else {
+            dispatch(getAllContactRedux())
+        }
+    },[])
     const node = document.querySelector("#modal");
     const exit = (e) => {
         closed(prev => !prev)
