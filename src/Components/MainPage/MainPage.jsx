@@ -23,6 +23,7 @@ export const MainPage = () => {
     const choiceProducts = useSelector(state => state.main.choiceProducts)
     const choiceChoiceCity = useSelector(state => state.main.choiceChoiceCity)
     const dispatch = useDispatch()
+    const [innValue,setInnValue]=useState('')
     const choiceAll = (name, data) => {
         switch (name) {
             case 'setMainCity':
@@ -67,6 +68,7 @@ export const MainPage = () => {
     }
     return (
         <div className={`${S.body} ${mainCity&&S.block}`}>
+
             <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={`${S.name} ${S.inputBody} `}>
                     <p className={S.titleBlock}>Фактическое название
@@ -78,9 +80,16 @@ export const MainPage = () => {
                 </div>
                 <div className={`${S.inn} ${S.inputBody}`}>
                     <p className={S.titleBlock}> ИНН</p>
-                    <input className={formState.errors.inn && S.errorInput} {...register('inn', {
+                    <input value={innValue} onInput={(e)=>{
+
+                        if(e.target.value.length<11){
+                            setInnValue(e.target.value)
+                        }
+                        console.log(formState.errors.inn);}}  className={formState.errors.inn && S.errorInput} {...register('inn', {maxLength:10,
+                        minLength: {value:10,message:'должно быть 10 цыфр'},
+                        message:'111',
                         required: 'поле не должно быть пустым',
-                    })} type="text"/>
+                    })} type="number"/>
                     <div className={S.error}> {formState.errors.inn && formState.errors.inn.message}</div>
                 </div>
                 <div className={S.choiceBlock}>

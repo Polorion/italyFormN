@@ -128,3 +128,15 @@
 .choiceBlock {
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 450px) {
+  .body {
+    font-size: 15px;
+    width: 70%;
+  }
+  .search {
+
+    input {
+      font-size: 10px;}
+  }
+}
