@@ -2,10 +2,11 @@ import * as React from 'react';
 import S from './Popup.module.scss'
 import {useEffect, useState} from "react";
 import * as ReactDOM from "react-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getAllCityRedux, getAllContactRedux} from "../../store/main/main.js";
 
 export const Popup = ({title, elem, closed, choice, type, setError}) => {
+    const isLoading = useSelector(state => state.main.isLoading)
     const [error, setErrorState] = useState(true)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -47,11 +48,22 @@ export const Popup = ({title, elem, closed, choice, type, setError}) => {
                     <input placeholder={'введите данные'} value={searchTerm} onChange={handleSearchChange} type="text"/>
                 </div>
                 <div className={S.find}>
-                    {filteredItems.map(el => <div onClick={() => {
-                        handleItemClick(el)
-                        setErrorState(true)
-                    }} key={el}
-                                                  className={`${S.elem} ${selectedItem === el && S.active}`}>{el}</div>)}
+                    {isLoading ? <div className={S.bodiloading}>
+                            <div className={S.loadingDots}>
+                                <div className={S.dot}></div>
+                                <div className={S.dot}></div>
+                                <div className={S.dot}></div>
+                            </div>
+                        </div> :
+                        filteredItems.map(el => {
+                            return <div onClick={() => {
+                                handleItemClick(el)
+                                setErrorState(true)
+                            }} key={el}
+                                        className={`${S.elem} ${S.findItem} ${selectedItem === el && S.active}`}>{el}</div>
+                        })}
+
+
                 </div>
                 <div onClick={() => {
                 }}>

@@ -20,7 +20,7 @@ export const MainPage = () => {
     const [contract, setContract] = useState(false)
     const [product, setProduct] = useState(false)
     const [moreCity, setMoreCity] = useState(false)
-    const [isSend, setIsSend] = useState(true)
+    const [isSend, setIsSend] = useState(false)
     useEffect(() => {
         if (mainCity || contract || product || moreCity) {
             node.style.overflow = 'hidden'
@@ -106,9 +106,7 @@ export const MainPage = () => {
     return (
         <div className={`${S.body} ${mainCity && S.block}`}>
 
-            <form onClick={() => {
-                console.log(formState.errors)
-            }} className={S.form} onSubmit={handleSubmit(onSubmit)}>
+            <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={`${S.name} ${S.inputBody} `}>
                     <p className={S.titleBlock}>Фактическое название
                     </p>

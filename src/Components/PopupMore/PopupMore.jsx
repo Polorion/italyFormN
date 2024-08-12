@@ -2,10 +2,11 @@ import * as React from 'react';
 import S from './PopupMore.module.scss'
 import {useEffect, useState} from "react";
 import * as ReactDOM from "react-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getAllCityRedux, getAllContactRedux, getAllProductRedux} from "../../store/main/main.js";
 
 export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
+    const isLoading = useSelector(state => state.main.isLoading)
     const [error, setErrorState] = useState(true)
     const dispatch = useDispatch()
 
@@ -54,8 +55,17 @@ export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
                            onChange={handleSearchChange} type="text"/>
                 </div>
                 <div className={S.find}>
-                    {filteredItems.map(el => <div onClick={() => handleItemClick(el)} key={el}
-                                                  className={`${S.elem} ${selectedItems.includes(el) && S.active}`}>{el}</div>)}
+                    {isLoading ? <div className={S.bodiloading}>
+                            <div className={S.loadingDots}>
+                                <div className={S.dot}></div>
+                                <div className={S.dot}></div>
+                                <div className={S.dot}></div>
+                            </div>
+                        </div> :
+                        filteredItems.map(el => <div onClick={() => handleItemClick(el)} key={el}
+                                                     className={`${S.elem} ${S.findItem} ${selectedItems.includes(el) && S.active}`}>{el}</div>)
+                    }
+
                 </div>
                 <div onClick={() => {
                 }}>

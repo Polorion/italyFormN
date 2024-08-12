@@ -59,7 +59,7 @@
   width: calc(100% + 60px);
   margin-bottom: 10px;
 
-  div {
+  .findItem {
     background-color: rgba(29, 68, 107, 0.44);
     text-align: center;
     color: #21385b;
@@ -111,9 +111,50 @@
 
 }
 
+.loadingDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  border-radius: 50% !important;
+  background-color: #0c0c0c; /* Цвет точек */
+  animation: bounce 0.6s infinite alternate;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+.bodiloading {
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .elem {
   cursor: pointer;
+  color: white !important;
 }
 
 .active {
