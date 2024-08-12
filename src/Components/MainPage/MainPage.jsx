@@ -8,16 +8,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     setChoiceChoiceCityStore,
     setChoiceContractStore,
-    setChoiceProductsStore,
+    setChoiceProductsStore, setData,
     setMainCityStore
 } from "../../store/main/main.js";
+import {Send} from "../send/send.jsx";
 
 export const MainPage = () => {
+
     const node = document.querySelector(":root");
     const [mainCity, setMainCity] = useState(false)
     const [contract, setContract] = useState(false)
     const [product, setProduct] = useState(false)
     const [moreCity, setMoreCity] = useState(false)
+    const [isSend, setIsSend] = useState(true)
     useEffect(() => {
         if (mainCity || contract || product || moreCity) {
             node.style.overflow = 'hidden'
@@ -42,6 +45,7 @@ export const MainPage = () => {
     const choiceChoiceCity = useSelector(state => state.main.choiceChoiceCity)
     const dispatch = useDispatch()
     const [innValue, setInnValue] = useState('')
+    const [tellValue, setTellValue] = useState('')
     const choiceAll = (name, data) => {
         switch (name) {
             case 'setMainCity':
@@ -62,7 +66,25 @@ export const MainPage = () => {
         mode: "onTouched"
     })
     const onSubmit = (data) => {
-        console.log(formState.errors)
+
+        setIsSend(true)
+        const sedData = () => {
+
+            return {
+                dop_goroda: choiceChoiceCity,
+                fact_name: data.name,
+                gorod: choiceCainCity[0],
+                inn: data.inn,
+                contact_fio: data.ownerName,
+                contact_phone: data.tell,
+                contact_email: data.email,
+
+                contact_type: choiceContract[0],
+                cat_products: choiceProducts,
+                usloviya_postavki: data.summary
+            }
+        }
+        dispatch(setData(sedData()))
     }
     const choiceCity = (e) => {
         e.preventDefault()
@@ -80,10 +102,13 @@ export const MainPage = () => {
         e.preventDefault()
         setMoreCity(prevState => !prevState)
     }
+
     return (
         <div className={`${S.body} ${mainCity && S.block}`}>
 
-            <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
+            <form onClick={() => {
+                console.log(formState.errors)
+            }} className={S.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={`${S.name} ${S.inputBody} `}>
                     <p className={S.titleBlock}>Фактическое название
                     </p>
@@ -106,7 +131,7 @@ export const MainPage = () => {
                     <div className={S.error}> {formState.errors.inn && formState.errors.inn.message}</div>
                 </div>
                 <div className={S.choiceBlock}>
-                   
+
                     <button className={S.button} onClick={choiceCity}>выбрать основной город</button>
                     <div {...register('btn', {
                         validate: () => {
@@ -153,8 +178,19 @@ export const MainPage = () => {
                 <div className={`${S.tell} ${S.inputBody}`}>
                     <p> Номер телефона
                     </p>
-                    <input placeholder={'8965044040'}
+                    <input onFocus={() => {
+                        if (tellValue === '') {
+
+                            setTellValue(8)
+                        }
+                    }} value={tellValue} onInput={(e) => {
+
+                        if (e.target.value.length < 12) {
+                            setTellValue('8' + e.target.value.replace(/^8/, ''));
+                        }
+                    }} placeholder={'8965044040'}
                            className={formState.errors.tell && S.errorInput} {...register('tell', {
+                        minLength: {value: 11, message: 'должно быть 11 цыфр'},
                         required: 'поле не должно быть пустым',
 
                     })} type="number"/>
@@ -177,19 +213,35 @@ export const MainPage = () => {
                     </div>
                     <div className={S.error}>{formState.errors.btn2 && <div>выберите из списка</div>} </div>
                 </div>
+                <div className={`${S.email} ${S.inputBody}`}>
+                    <p> Email
+                    </p>
+                    <input
+                        className={formState.errors.email && S.errorInput} {...register('email', {
+                        pattern: {
+                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                            message: 'это не емайл'
+                        },
+                        required: 'поле не должно быть пустым',
+
+                    })} type="text"/>
+                    <div className={S.error}> {formState.errors.email && formState.errors.email.message}</div>
+                </div>
 
                 <div className={S.choiceBlock}>
                     <button className={S.button} onClick={choiceProduct}>Основные категории продуктов</button>
                     <div  {...register('btn3', {
-                        validate: () => {
-                            if (!choiceProducts[0]) {
-                                return false
-                            } else {
-                                return true
-                            }
-                        }
 
-                    })} className={choiceProducts.length < 1 && S.none}>
+                            validate: () => {
+                                if (!choiceProducts[0]) {
+                                    return false
+                                } else {
+                                    return true
+                                }
+                            }
+
+                        }
+                    )} className={choiceProducts.length < 1 && S.none}>
                         {choiceProducts && choiceProducts.map(el => <p>{el}</p>)}
 
                     </div>
@@ -246,6 +298,7 @@ export const MainPage = () => {
                     }} title={'В какие города возможны поставки'} type={'setAllCity'}
                                choice={choiceAll} elem={mainCityData} closed={setMoreCity}/>}
                 <button className={S.send}>Отправить</button>
+                {isSend && <Send exit={setIsSend}/>}
 
 
             </form>

@@ -2,15 +2,17 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    mainCity: ['1','2','3','4','5','6','7','8','9',],
-    contract: ['1','2','3','4','5','6','7','8','9',],
-    products: ['1','2','3','4','5','6','7','8','9',],
-    choiceCity: ['1','2','3','4','5','6','7','8','9',],
+    mainCity: ['1', '2', '3', '4', '5', '6', '7', '8', '9',],
+    contract: ['1', '2', '3', '4', '5', '6', '7', '8', '9',],
+    products: ['1', '2', '3', '4', '5', '6', '7', '8', '9',],
+    choiceCity: ['1', '2', '3', '4', '5', '6', '7', '8', '9',],
     choiceMainCity: [],
     choiceContract: [],
     choiceProducts: [],
     choiceChoiceCity: [],
-    isLoading:false
+    isLoading: false,
+    sendLoad: false,
+    request: []
 
 };
 
@@ -20,33 +22,46 @@ const initialState = {
 
 export const getAllProductRedux = createAsyncThunk(
     "cart/getAllProductRedux",
-        async (params) => {
+    async (params) => {
 
-            const { data } = await axios.get (
-                `http://localhost:2000/getAllProduct`
-            );
-            return data;
-        }
+        const {data} = await axios.get(
+            `http://localhost:2000/getAllProduct`
+        );
+        return data;
+    }
 );
 export const getAllCityRedux = createAsyncThunk(
     "cart/getAllCityRedux",
-        async (params) => {
+    async (params) => {
 
-            const { data } = await axios.get (
-                `http://localhost:2000/getAllCity`
-            );
-            return data;
-        }
+        const {data} = await axios.get(
+            `http://localhost:2000/getAllCity`
+        );
+        return data;
+    }
 );
 export const getAllContactRedux = createAsyncThunk(
     "cart/getAllContactRedux",
-        async (params) => {
+    async (params) => {
 
-            const { data } = await axios.get (
-                `http://localhost:2000/getAllContact`
-            );
-            return data;
-        }
+        const {data} = await axios.get(
+            `http://localhost:2000/getAllContact`
+        );
+        return data;
+    }
+);
+
+export const setData = createAsyncThunk(
+    "cart/setData",
+    async (params) => {
+
+        const {data} = await axios.post(
+            `http://localhost:2000/setData`, {
+                params
+            }
+        );
+        return data;
+    }
 );
 
 
@@ -54,45 +69,59 @@ export const main = createSlice({
     name: "main",
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(getAllProductRedux.pending, (state, { payload }) => {
+        builder.addCase(getAllProductRedux.pending, (state, {payload}) => {
 
             state.isLoading = true;
         });
-        builder.addCase(getAllProductRedux.fulfilled, (state, { payload }) => {
+        builder.addCase(getAllProductRedux.fulfilled, (state, {payload}) => {
             state.products = [...payload];
             state.isLoading = false;
         });
-        builder.addCase(getAllProductRedux.rejected, (state, { payload }) => {
+        builder.addCase(getAllProductRedux.rejected, (state, {payload}) => {
             state.isLoading = false;
         });
 
-        builder.addCase(getAllCityRedux.pending, (state, { payload }) => {
+        builder.addCase(getAllCityRedux.pending, (state, {payload}) => {
             state.isLoading = true;
         });
-        builder.addCase(getAllCityRedux.fulfilled, (state, { payload }) => {
+        builder.addCase(getAllCityRedux.fulfilled, (state, {payload}) => {
             console.log(payload)
             state.mainCity = [...payload];
             state.isLoading = false;
         });
-        builder.addCase(getAllCityRedux.rejected, (state, { payload }) => {
+        builder.addCase(getAllCityRedux.rejected, (state, {payload}) => {
             state.isLoading = false;
         });
 
-        builder.addCase(getAllContactRedux.pending, (state, { payload }) => {
+        builder.addCase(getAllContactRedux.pending, (state, {payload}) => {
             state.isLoading = true;
         });
-        builder.addCase(getAllContactRedux.fulfilled, (state, { payload }) => {
+        builder.addCase(getAllContactRedux.fulfilled, (state, {payload}) => {
             state.contract = [...payload];
             state.isLoading = false;
         });
-        builder.addCase(getAllContactRedux.rejected, (state, { payload }) => {
+        builder.addCase(getAllContactRedux.rejected, (state, {payload}) => {
             state.isLoading = false;
+        });
+        builder.addCase(setData.pending, (state, {payload}) => {
+            state.sendLoad = true;
+        });
+        builder.addCase(setData.fulfilled, (state, {payload}) => {
+            state.sendLoad = false;
+            state.request = payload
+
+        });
+        builder.addCase(setData.rejected, (state, {payload}) => {
+            state.sendLoad = false;
         });
     },
     reducers: {
 
         setMainCityStore: (state, {payload}) => {
             state.choiceMainCity = [payload]
+        },
+        setRequest: (state, {payload}) => {
+            state.request = [{q: ''}]
         },
         setChoiceContractStore: (state, {payload}) => {
             state.choiceContract = [payload]
@@ -112,7 +141,7 @@ export const {
     setMainCityStore,
     setChoiceContractStore,
     setChoiceProductsStore,
-    setChoiceChoiceCityStore
+    setChoiceChoiceCityStore, setRequest
 } =
     main.actions;
 
