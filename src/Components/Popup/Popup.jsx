@@ -55,13 +55,13 @@ export const Popup = ({title, elem, closed, choice, type, setError}) => {
                                 <div className={S.dot}></div>
                             </div>
                         </div> :
-                        filteredItems.map(el => {
+                        filteredItems.length > 0 ? filteredItems.map(el => {
                             return <div onClick={() => {
                                 handleItemClick(el)
                                 setErrorState(true)
                             }} key={el}
                                         className={`${S.elem} ${S.findItem} ${selectedItem === el && S.active}`}>{el}</div>
-                        })}
+                        }) : <div className={S.errorLoad}>проблема на сервере попробуйте позже</div>}
 
 
                 </div>

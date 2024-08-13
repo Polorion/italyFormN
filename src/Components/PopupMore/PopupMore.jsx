@@ -62,8 +62,10 @@ export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
                                 <div className={S.dot}></div>
                             </div>
                         </div> :
-                        filteredItems.map(el => <div onClick={() => handleItemClick(el)} key={el}
-                                                     className={`${S.elem} ${S.findItem} ${selectedItems.includes(el) && S.active}`}>{el}</div>)
+                        filteredItems.length > 0 ? filteredItems.map(el => <div onClick={() => handleItemClick(el)}
+                                                                                key={el}
+                                                                                className={`${S.elem} ${S.findItem} ${selectedItems.includes(el) && S.active}`}>{el}</div>)
+                            : <div className={S.errorLoad}>проблема на сервере попробуйте позже</div>
                     }
 
                 </div>
