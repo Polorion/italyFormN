@@ -11,10 +11,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-style: italic;
-    color: white;
-    text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58), 1px 1px 0 rgb(64, 58, 58), 1px -1px 0 rgb(64, 58, 58), -1px 1px 0 rgb(64, 58, 58), -1px -1px 0 rgb(64, 58, 58), 0px 2px 0 rgb(64, 58, 58), 0px -2px 0 rgb(64, 58, 58), 2px 0px 0 rgb(64, 58, 58), -2px 0px 0 rgb(64, 58, 58), 2px 2px 0 rgb(64, 58, 58), 2px -2px 0 rgb(64, 58, 58), -2px 2px 0 rgb(64, 58, 58), -2px -2px 0 rgb(64, 58, 58), 3px 3px 1px rgba(0, 0, 0, 1);
-    -webkit-text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58), 1px 1px 0 rgb(64, 58, 58), 1px -1px 0 rgb(64, 58, 58), -1px 1px 0 rgb(64, 58, 58), -1px -1px 0 rgb(64, 58, 58), 0px 2px 0 rgb(64, 58, 58), 0px -2px 0 rgb(64, 58, 58), 2px 0px 0 rgb(64, 58, 58), -2px 0px 0 rgb(64, 58, 58), 2px 2px 0 rgb(64, 58, 58), 2px -2px 0 rgb(64, 58, 58), -2px 2px 0 rgb(64, 58, 58), -2px -2px 0 rgb(64, 58, 58), 3px 3px 1px rgba(0, 0, 0, 1);
-    -moz-text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58),
-
+    text-shadow: 2px 0px 9px rgba(0, 0, 0, 0.52);
+    color: #3b3008;
 }
 

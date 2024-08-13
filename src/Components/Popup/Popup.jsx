@@ -43,9 +43,9 @@ export const Popup = ({title, elem, closed, choice, type, setError}) => {
                 <div onClick={exit} className={S.exit}></div>
 
 
-                <h1>{title}</h1>
+                <h1 className={S.title}>{title}</h1>
                 <div className={S.search}>
-                    <input placeholder={'введите данные'} value={searchTerm} onChange={handleSearchChange} type="text"/>
+                    <input placeholder={'Поиск'} value={searchTerm} onChange={handleSearchChange} type="text"/>
                 </div>
                 <div className={S.find}>
                     {isLoading ? <div className={S.bodiloading}>
@@ -68,9 +68,11 @@ export const Popup = ({title, elem, closed, choice, type, setError}) => {
                 <div onClick={() => {
                 }}>
                     {selectedItem && (
-                        <div className={S.choiceBlock}>
-                            <h3>Выбранный элемент:</h3>
-                            <p>{selectedItem}</p>
+                        <div className={S.ChoiceBlockItems}>
+                            <h3 className={S.choiceTitle}>Выбранный элемент:</h3>
+                            <div className={S.choiceBlock}>
+                                <p>{selectedItem}</p>
+                            </div>
                         </div>
                     )}
 

@@ -16,17 +16,17 @@ export const Send = ({exit}) => {
                 e.stopPropagation()
             }} className={S.body}>
                 {isLoading ? <div className={S.bodyDots}>
-                        <p>Отправка формы</p>
+                        <h1 className={S.title}>Отправка формы</h1>
                         <div className={S.loadingDots}>
                             <div className={S.dot}></div>
                             <div className={S.dot}></div>
                             <div className={S.dot}></div>
                         </div>
                     </div> :
-                    <div>
+                    <div className={S.flex}>
                         <div className={S.requestBlock}>{request.length >= 1 && Object.values(request[0])}</div>
                         <div>
-                            <button onClick={() => {
+                            <button className={S.exitt} onClick={() => {
                                 exit(false)
                                 dispatch(setRequest())
                             }}>закрыть

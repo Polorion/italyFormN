@@ -49,9 +49,9 @@ export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
                 <div onClick={exit} className={S.exit}></div>
 
 
-                <h1>{title}</h1>
+                <h1 className={S.title}>{title}</h1>
                 <div className={S.search}>
-                    <input placeholder={'введите данные'} value={searchTerm}
+                    <input placeholder={'Поиск'} value={searchTerm}
                            onChange={handleSearchChange} type="text"/>
                 </div>
                 <div className={S.find}>
@@ -71,12 +71,15 @@ export const PopupMore = ({title, elem, closed, type, choice, setError}) => {
                 }}>
                     {selectedItems.length > 0 && (
                         <div className={S.choiceBlock}>
-                            <h3>Выбранные элементы:</h3>
-                            <ul>
-                                {selectedItems.map((item, index) => (
-                                    <li key={index}>{item}</li>
-                                ))}
-                            </ul>
+                            <h3 className={S.choiceTitle}>Выбранные элементы:</h3>
+                            <div className={S.ChoiceBlockItems}>
+                                <ul>
+                                    {selectedItems.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+
+                            </div>
                         </div>
                     )}
 
