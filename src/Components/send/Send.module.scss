@@ -22,6 +22,16 @@
   3px  -3px 1px -2px #f3ddc3 inset,
   -3px -3px 1px -2px #f3ddc3 inset;
   cursor: pointer;
+
+  transition: all ease .5s;
+
+  &:hover {
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, .35) inset,
+    3px 3px 1px -2px #f3ddc3 inset,
+    -3px -3px 1px -2px #f3ddc3 inset,
+    3px  -3px 1px -2px #f3ddc3 inset,
+    -3px -3px 1px -2px #f3ddc3 inset;
+  }
 }
 
 .flex {

@@ -26,7 +26,7 @@ export const getAllProductRedux = createAsyncThunk(
     async (params) => {
 
         const {data} = await axios.get(
-            `http://localhost:2000/getAllProduct`
+            `http://188.68.219.194:2025/getAllProduct`
         );
         return data;
     }
@@ -36,7 +36,7 @@ export const getAllCityRedux = createAsyncThunk(
     async (params) => {
 
         const {data} = await axios.get(
-            `http://localhost:2000/getAllCity`
+            `http://188.68.219.194:2025/getAllCity`
         );
         return data;
     }
@@ -46,7 +46,7 @@ export const getAllContactRedux = createAsyncThunk(
     async (params) => {
 
         const {data} = await axios.get(
-            `http://localhost:2000/getAllContact`
+            `http://188.68.219.194:2025/getAllContact`
         );
         return data;
     }
@@ -57,7 +57,7 @@ export const setData = createAsyncThunk(
     async (params) => {
 
         const {data} = await axios.post(
-            `http://localhost:2000/setData`, {
+            `http://188.68.219.194:2025/setData`, {
                 params
             }
         );

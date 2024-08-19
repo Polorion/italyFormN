@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "axios": "^1.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "request": "^2.88.2"
+  },
+  "name": "expres",
+  "version": "1.0.0",
+  "main": "../index.js",
+  "type": "module",
+  "scripts": {
+    "serve": " nodemon ../index.js",
+    "start": "node ../index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
