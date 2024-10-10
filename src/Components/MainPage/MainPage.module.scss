@@ -87,6 +87,14 @@
   text-align: center;
 }
 
+.mailSendA {
+  text-align: center;
+
+  a {
+    color: #095d05;
+  }
+}
+
 .form {
   background-color: rgba(185, 183, 183, 0.36);
   max-width: 50%;
@@ -98,9 +106,6 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
-  text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58), 1px 1px 0 rgb(64, 58, 58), 1px -1px 0 rgb(64, 58, 58), -1px 1px 0 rgb(64, 58, 58), -1px -1px 0 rgb(64, 58, 58), 0px 2px 0 rgb(64, 58, 58), 0px -2px 0 rgb(64, 58, 58), 2px 0px 0 rgb(64, 58, 58), -2px 0px 0 rgb(64, 58, 58), 2px 2px 0 rgb(64, 58, 58), 2px -2px 0 rgb(64, 58, 58), -2px 2px 0 rgb(64, 58, 58), -2px -2px 0 rgb(64, 58, 58), 3px 3px 1px rgba(0, 0, 0, 1);
-  -webkit-text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58), 1px 1px 0 rgb(64, 58, 58), 1px -1px 0 rgb(64, 58, 58), -1px 1px 0 rgb(64, 58, 58), -1px -1px 0 rgb(64, 58, 58), 0px 2px 0 rgb(64, 58, 58), 0px -2px 0 rgb(64, 58, 58), 2px 0px 0 rgb(64, 58, 58), -2px 0px 0 rgb(64, 58, 58), 2px 2px 0 rgb(64, 58, 58), 2px -2px 0 rgb(64, 58, 58), -2px 2px 0 rgb(64, 58, 58), -2px -2px 0 rgb(64, 58, 58), 3px 3px 1px rgba(0, 0, 0, 1);
-  -moz-text-shadow: 0px 1px 0 rgb(64, 58, 58), 0px -1px 0 rgb(64, 58, 58), 1px 0px 0 rgb(64, 58, 58), -1px 0px 0 rgb(64, 58, 58), 1px 1px 0 rgb(64, 58, 58), 1px -1px 0 rgb(64, 58, 58), -1px 1px 0 rgb(64, 58, 58), -1px -1px 0 rgb(64, 58, 58), 0px 2px 0 rgb(64, 58, 58), 0px -2px 0 rgb(64, 58, 58), 2px 0px 0 rgb(64, 58, 58), -2px 0px 0 rgb(64, 58, 58), 2px 2px 0 rgb(64, 58, 58), 2px -2px 0 rgb(64, 58, 58), -2px 2px 0 rgb(64, 58, 58), -2px -2px 0 rgb(64, 58, 58), 3px 3px 1px rgba(0, 0, 0, 1);
   font-size: 20px;
   color: rgb(255, 255, 255);
 }
@@ -190,6 +195,9 @@
 }
 
 @media screen and (max-width: 450px) {
+  .mailSendA {
+    font-size: 15px;
+  }
   input, textarea {
     width: 100%;
     font-size: 15px;
@@ -216,6 +224,9 @@
 }
 
 @media screen and (max-width: 290px) {
+  .mailSendA {
+    font-size: 10px;
+  }
   input, textarea {
     width: 100%;
     font-size: 10px;
